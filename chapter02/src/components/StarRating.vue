@@ -1,27 +1,28 @@
 <template>
   <div>
-    <StarRatingInput
-      v-if="!voted"
-      :max-rating="maxRating"
-      @final-vote="vote"
-    >
-      Rate this Place
-    </StarRatingInput>
-    <StarRatingDisplay
-      v-else
-      :max-rating="maxRating"
-      :rating="rating || rank"
-      :votes="votes"
-    />
+    <component
+    :is="starComponent"
+    :max-rating="maxRating"
+    :rating="rating || rank"
+    :votes="votes"
+    @final-vote="vote"
+    >Rate this Place
+    </component>
   </div>
 </template>
 
 <script>
 import StarRatingInput from './StarRatingInput.vue';
 import StarRatingDisplay from './StarRatingDisplay.vue';
+import StarRatingDisplayMixin from '../mixins/starRatingDisplay';
+
 export default {
   name: 'StarRating',
   components: { StarRatingDisplay, StarRatingInput },
+  mixins: [StarRatingDisplayMixin],
+  provide: {
+    StarRating: true,
+  },
   props: {
     maxRating: {
       type: Number,
@@ -43,6 +44,12 @@ export default {
     rank: 0,
     voted: false,
   }),
+  computed: {
+    starComponent() {
+      if (!this.voted) return StarRatingInput;
+      return StarRatingDisplay;
+    },
+  },
   methods: {
     vote(rank) {
       this.rank = rank;

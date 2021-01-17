@@ -23,36 +23,17 @@
 </template>
 
 <script>
+import StarRatingDisplayMixin from '../mixins/starRatingDisplay';
+import StarRatingNameMixin from '../mixins/starRatingName';
+import StarRatingChildMixin from '../mixins/starRatingChild';
+
 export default {
   name: 'StartRatingDisplay',
-  props: {
-    maxRating: {
-      type: Number,
-      required: false,
-      default: 5,
-    },
-    rating: {
-      type: Number,
-      required: false,
-      default: 0,
-    },
-    votes: {
-      type: Number,
-      required: false,
-      default: 0,
-    },
-  },
-  methods: {
-    getStarName(rate) {
-      if (rate <= this.rating) {
-        return 'star';
-      }
-      if (Math.fround((rate - this.rating)) < 1) {
-        return 'star_half';
-      }
-      return 'star_border';
-    },
-  },
+  mixins: [
+    StarRatingDisplayMixin,
+    StarRatingNameMixin,
+    StarRatingChildMixin,
+  ],
 };
 </script>
 

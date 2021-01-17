@@ -6,9 +6,6 @@
       show-media
       show-actions
       img-src="https://picsum.photos/300/200"
-      :main-text="`
-        The path of the righteous man is beset on all sides by the iniquities
-        of the selfish and the tyranny of evil men.`"
     >
     <p>
         <StarRating
@@ -23,15 +20,17 @@
         <MaterialButton
           background-color="#027be3"
           text-color="#fff"
+          @click="resetVote"
         >
-          Action 1
+          Reset
         </MaterialButton>
         <MaterialButton
           background-color="#26a69a"
           text-color="#fff"
           is-flat
+          @click="forceVote"
         >
-          Action 2
+          Rate 5 Stars
         </MaterialButton>
       </template>
     </MaterialCardBox>
@@ -39,15 +38,23 @@
 </template>
 
 <script>
-import MaterialCardBox from './components/MaterialCardBox.vue';
-import MaterialButton from './components/MaterialButton.vue';
-import StarRating from './components/StarRating.vue';
+import { defineAsyncComponent } from 'vue';
 export default {
   name: 'App',
   components: {
-    MaterialButton,
-    MaterialCardBox,
-    StarRating,
+    StarRating: defineAsyncComponent(() => import('./components/StarRating.vue')),
+    MaterialButton: defineAsyncComponent(() => import('./components/MaterialButton.vue')),
+    MaterialCardBox: defineAsyncComponent(() => import('./components/MaterialCardBox.vue')),
+  },
+  methods: {
+    resetVote() {
+      this.$refs.starRating.rank = 0;
+      this.$refs.starRating.voted = false;
+    },
+    forceVote() {
+      this.$refs.starRating.rank = 5;
+      this.$refs.starRating.voted = true;
+    },
   },
 };
 </script>

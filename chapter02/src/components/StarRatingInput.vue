@@ -20,31 +20,32 @@
 </template>
 
 <script>
+import StarRatingBaseMixin from '../mixins/starRatingBase';
+import StarRatingChildMixin from '../mixins/starRatingChild';
+
 export default {
   name: 'StartRatingInput',
-  props: {
-    maxRating: {
-      type: Number,
-      required: false,
-      default: 5,
-    },
-  },
+  mixins: [
+    StarRatingBaseMixin,
+    StarRatingChildMixin,
+  ],
   data: () => ({
-    rating: 0,
+    rank: 0,
   }),
   methods: {
     updateRating(value) {
-      this.rating = value;
+      this.rank = value;
     },
     emitFinalVote(value) {
       this.updateRating(value);
-      this.$emit('final-vote', this.rating);
+      this.$emit('final-vote', this.rank);
     },
     getStarName(rate) {
-      if (rate <= this.rating) {
+      const rating = (this.rating || this.rank);
+      if (rate <= rating) {
         return 'star';
       }
-      if (Math.fround((rate - this.rating)) < 1) {
+      if (Math.fround((rate - rating)) < 1) {
         return 'star_half';
       }
       return 'star_border';
