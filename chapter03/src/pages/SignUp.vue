@@ -1,13 +1,19 @@
 <template>
-  <q-page padding class="flex flex-center bg-grey-1">
+  <q-page class="flex flex-center bg-grey-1">
     <q-card style="width: 350px">
       <q-card-section>
-        <h6 class="no-margin">Chat Application</h6>
+        <h6 class="no-margin">Create a new account</h6>
       </q-card-section>
       <q-card-section>
         <q-form
           class="q-gutter-md"
         >
+          <name-input
+            v-model.trim="name"
+          />
+          <username-input
+            v-model.trim="username"
+          />
           <email-input
             v-model.trim="email"
           />
@@ -18,14 +24,15 @@
       </q-card-section>
       <q-card-actions align="right">
         <q-btn
-          label="Create new account"
+          label="Reset"
+          type="reset"
           color="primary"
           flat
           class="q-ml-sm"
-          @click="createAccount"
+          @click="onReset"
         />
         <q-btn
-          label="Login"
+          label="Create"
           type="submit"
           color="primary"
           @click="onSubmit"
@@ -41,45 +48,46 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 export default {
-  name: 'Index',
+  name: 'SignUp',
   components: {
     PasswordInput: () => import('components/PasswordInput'),
     EmailInput: () => import('components/EmailInput'),
+    UsernameInput: () => import('components/UsernameInput'),
+    NameInput: () => import('components/NameInput'),
   },
   data: () => ({
+    name: '',
+    username: '',
     email: '',
     password: '',
   }),
-  async beforeMount() {
-    if (this.getUserId) {
-      await this.$router.replace({ name: 'Contacts' });
-    }
-  },
   computed: {
     ...mapGetters('user', [
       'isLoading',
-      'getUserId',
     ]),
   },
   methods: {
     ...mapActions('user', [
-      'signInUser',
+      'signUpNewUser',
     ]),
     async onSubmit() {
       try {
-        await this.signInUser({
+        await this.signUpNewUser({
+          name: this.name,
+          username: this.username,
           email: this.email,
           password: this.password,
         });
-        await this.$router.push({ name: 'Contacts' });
+        await this.$router.replace({ name: 'Validate' });
       } catch (e) {
         this.$q.dialog({
           message: e.message,
         });
       }
     },
-    createAccount() {
-      this.$router.push({ name: 'SignUp' });
+    onReset() {
+      this.email = '';
+      this.password = '';
     },
   },
 };

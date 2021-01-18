@@ -28,7 +28,7 @@
 </template>
 <script>
 import { uid } from 'quasar';
-import { uploadFile } from 'driver/bucket';
+import { uploadFile } from 'src/driver/bucket';
 export default {
   name: 'AvatarInput',
   props: {
