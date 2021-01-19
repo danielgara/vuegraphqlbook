@@ -36,6 +36,23 @@ const routes = [
     ],
   },
   {
+    path: '/chat/messages',
+    component: () => import('layouts/Messages.vue'),
+    children: [
+      {
+        path: ':id/:name',
+        name: 'Messages2',
+        meta: {
+          authenticated: true,
+          goBack: {
+            name: 'Contacts',
+          },
+        },
+        component: () => import('pages/Messages.vue'),
+      },
+    ],
+  },
+  {
     path: '/user',
     component: () => import('layouts/Chat.vue'),
     children: [
