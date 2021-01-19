@@ -14,17 +14,12 @@ const routes = [
     ],
   },
   {
-    path: '/chat',
-    component: () => import('layouts/Chat.vue'),
+    path: '/chat/messages',
+    component: () => import('layouts/Messages.vue'),
     children: [
       {
-        path: 'contacts',
-        name: 'Contacts',
-        component: () => import('pages/Contacts.vue'),
-      },
-      {
-        path: 'messages/:id/:name',
-        name: 'Messages',
+        path: ':id/:name',
+        name: 'Messages2',
         meta: {
           authenticated: true,
           goBack: {
@@ -36,12 +31,17 @@ const routes = [
     ],
   },
   {
-    path: '/chat/messages',
-    component: () => import('layouts/Messages.vue'),
+    path: '/chat',
+    component: () => import('layouts/Chat.vue'),
     children: [
       {
-        path: ':id/:name',
-        name: 'Messages2',
+        path: 'contacts',
+        name: 'Contacts',
+        component: () => import('pages/Contacts.vue'),
+      },
+      {
+        path: 'messages/:id/:name',
+        name: 'Messages',
         meta: {
           authenticated: true,
           goBack: {

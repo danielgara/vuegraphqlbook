@@ -6,9 +6,10 @@
     "framework": "none",
     "config": {
       "SourceDir": "src",
-      "DistributionDir": "dist/spa",
-      "BuildCommand": "quasar build",
-      "StartCommand": "quasar dev"
+      "DistributionDir": "dist/pwa",
+      "BuildCommand": "quasar build -m pwa",
+      "StartCommand": "quasar dev -m pwa",
+      "ServerlessContainers": false
     }
   },
   "providers": [

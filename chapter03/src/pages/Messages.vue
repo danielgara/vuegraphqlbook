@@ -1,5 +1,6 @@
 <template>
   <q-page class="q-pa-md row justify-center">
+    Messages
     <q-chat-message
       v-for="message in currentMessages"
       :ref="`${message.id}`"
@@ -10,7 +11,7 @@
       :name="message.author.name"
       class="col-12"
     >
-      <template v-slot:avatar>
+     <!-- <template v-slot:avatar>
         <avatar-display
           :avatar-object="message.author.avatar"
           :name="message.author.name"
@@ -20,7 +21,7 @@
           ? 'q-message-avatar--received'
           : 'q-message-avatar--sent'"
         />
-      </template>
+      </template>-->
     </q-chat-message>
   </q-page>
 </template>

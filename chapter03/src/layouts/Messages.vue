@@ -10,7 +10,7 @@
           icon="keyboard_arrow_left"
         />
         <q-toolbar-title>
-          Chat App - {{ $route.params.name }}
+          Chat App Hola - {{ $route.params.name }}
         </q-toolbar-title>
         <q-btn
           dense

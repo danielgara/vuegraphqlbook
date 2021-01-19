@@ -138,12 +138,13 @@ module.exports = function (/* ctx */) {
 
     // https://quasar.dev/quasar-cli/developing-pwa/configuring-pwa
     pwa: {
-      workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
-      workboxOptions: {}, // only for GenerateSW
+      cleanupOutdatedCaches: true,
+      skipWaiting: true,
+      clientsClaim: true,
       manifest: {
-        name: 'Chat App',
+        name: 'Chat Application',
         short_name: 'Chat App',
-        description: 'A Chat Application',
+        description: 'Quasar & AWS Amplify Chat Application',
         display: 'standalone',
         orientation: 'portrait',
         background_color: '#ffffff',
